@@ -17,7 +17,7 @@ public class MWA11yHelperService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(final AccessibilityEvent event) {
-        Log.d(TAG, "onA11yEvent: " + event);
+        Log.v(TAG, "onA11yEvent: " + event);
 
         switch (event.getEventType()) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
@@ -31,7 +31,7 @@ public class MWA11yHelperService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-        Log.d(TAG, "onInterrupt");
+        Log.v(TAG, "onInterrupt");
     }
 
     private A11yTopWindowChangeEvent processWindowStateChangeEvent(
