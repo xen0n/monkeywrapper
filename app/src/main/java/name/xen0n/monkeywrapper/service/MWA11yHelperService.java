@@ -1,6 +1,6 @@
 package name.xen0n.monkeywrapper.service;
 
-import name.xen0n.monkeywrapper.events.A11yDebugEvent;
+import name.xen0n.monkeywrapper.events.A11yTopWindowChangeEvent;
 import android.accessibilityservice.AccessibilityService;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -19,7 +19,14 @@ public class MWA11yHelperService extends AccessibilityService {
     public void onAccessibilityEvent(final AccessibilityEvent event) {
         Log.d(TAG, "onA11yEvent: " + event);
 
-        getEventBus().post(new A11yDebugEvent(event));
+        switch (event.getEventType()) {
+            case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
+                getEventBus().post(processWindowStateChangeEvent(event));
+                return;
+
+            default:
+                Log.wtf(TAG, "should never happen");
+        }
     }
 
     @Override
@@ -27,4 +34,11 @@ public class MWA11yHelperService extends AccessibilityService {
         Log.d(TAG, "onInterrupt");
     }
 
+    private A11yTopWindowChangeEvent processWindowStateChangeEvent(
+            final AccessibilityEvent evt) {
+        final CharSequence packageName = evt.getPackageName();
+        final CharSequence className = evt.getClassName();
+
+        return new A11yTopWindowChangeEvent(packageName, className);
+    }
 }

@@ -1,18 +1,19 @@
 package name.xen0n.monkeywrapper.service;
 
-import name.xen0n.monkeywrapper.events.A11yDebugEvent;
+import name.xen0n.monkeywrapper.events.A11yTopWindowChangeEvent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
-import android.view.accessibility.AccessibilityEvent;
 import de.greenrobot.event.EventBus;
 
 
 public class MWDaemonService extends Service {
 
     private static final String TAG = "MWDaemonService";
+
+    private CharSequence topWindowPackageName;
+    private CharSequence topWindowClassName;
 
     public EventBus getEventBus() {
         return EventBus.getDefault();
@@ -48,8 +49,8 @@ public class MWDaemonService extends Service {
         super.onDestroy();
     }
 
-    public void onEvent(final A11yDebugEvent evt) {
-        final AccessibilityEvent ae = evt.getEvent();
-        Log.d(TAG, "onEvent: received A11yEvent: " + ae);
+    public void onEvent(final A11yTopWindowChangeEvent evt) {
+        topWindowPackageName = evt.getPackageName();
+        topWindowClassName = evt.getClassName();
     }
 }
