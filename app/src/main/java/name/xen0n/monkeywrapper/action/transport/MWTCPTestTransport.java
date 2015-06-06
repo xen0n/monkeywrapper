@@ -43,6 +43,8 @@ public class MWTCPTestTransport implements MWTransport {
         Log.i(TAG, "stopTransport");
 
         if (thrd != null) {
+            thrd.interrupt();
+
             for (int i = 0; i < 10; i++) {
                 try {
                     thrd.join();
