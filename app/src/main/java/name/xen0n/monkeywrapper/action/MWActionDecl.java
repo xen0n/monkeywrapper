@@ -44,17 +44,8 @@ public class MWActionDecl {
         return targetClass.equals(className);
     }
 
-    public boolean maybeSend(
-            final CharSequence packageName,
-            final CharSequence className,
-            final MonkeyBridge bridge) {
-        if (!matchTarget(packageName, className)) {
-            return false;
-        }
-
-        getSequence().sendToBridge(bridge);
-
-        return true;
+    public int sendToBridge(final MonkeyBridge bridge) {
+        return getSequence().sendToBridge(bridge);
     }
 
     private MWActionSequence getSequence() {
