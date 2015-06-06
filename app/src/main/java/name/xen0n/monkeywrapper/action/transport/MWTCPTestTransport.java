@@ -28,6 +28,11 @@ public class MWTCPTestTransport implements MWTransport {
     public void startTransport(final EventBus bus) {
         Log.i(TAG, "startTransport: bus=" + bus);
 
+        if (thrd != null) {
+            Log.w(TAG, "ignoring restart of transport");
+            return;
+        }
+
         thrd = new TransportThread(bus, TEST_PORT);
         thrd.start();
     }
