@@ -7,22 +7,15 @@ import name.xen0n.monkeywrapper.action.bridge.MonkeyBridge;
 import name.xen0n.monkeywrapper.app.MWBaseService;
 import name.xen0n.monkeywrapper.app.MWServiceAspect;
 import android.content.Intent;
-import de.greenrobot.event.EventBus;
 
 
 public class MWMonkeyWrapperAspect implements MWServiceAspect {
 
     private MonkeyBridge bridge;
 
-    public EventBus getEventBus() {
-        return EventBus.getDefault();
-    }
-
     @Override
     public void initAspect(final MWBaseService ctx) {
         bridge = new MonkeyBridge();
-
-        getEventBus().register(this);
     }
 
     @Override
@@ -64,6 +57,5 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
     @Override
     public void destroyAspect(final MWBaseService ctx) {
         bridge.stopMonkey();
-        getEventBus().unregister(this);
     }
 }
