@@ -8,6 +8,11 @@
 
     <string name="mw_daemon_service_label">MonkeyWrapper 守护服务</string>
 
+    <!-- record service -->
+    <eat-comment />
+
+    <string name="mw_record_service_label">MonkeyWrapper 录制服务</string>
+
     <!-- a11y -->
     <eat-comment />
 

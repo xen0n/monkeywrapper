@@ -3,6 +3,7 @@ package name.xen0n.monkeywrapper.ui;
 import name.xen0n.monkeywrapper.R;
 import name.xen0n.monkeywrapper.app.MWBaseActivity;
 import name.xen0n.monkeywrapper.service.MWDaemonService;
+import name.xen0n.monkeywrapper.service.MWRecordService;
 import name.xen0n.monkeywrapper.util.ShellUtils;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +32,7 @@ public class Launcher extends MWBaseActivity {
         super.onCreate(icicle);
 
         MWDaemonService.start(this);
+        MWRecordService.start(this);
 
         setupToolbar(toolbar);
         checkRootStatus();
