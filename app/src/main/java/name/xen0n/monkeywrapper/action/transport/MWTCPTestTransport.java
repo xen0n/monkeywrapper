@@ -71,7 +71,7 @@ public class MWTCPTestTransport implements MWTransport {
                 sk = new ServerSocket(
                         port,
                         1024,
-                        NetHelper.getLoopbackAddress());
+                        NetHelper.getLoopbackAddressForAdb());
             } catch (final IOException e) {
                 Log.e(TAG, "error during server socket creation", e);
                 return;

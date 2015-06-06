@@ -20,4 +20,12 @@ public class NetHelper {
             return null;
         }
     }
+
+    public static InetAddress getLoopbackAddressForAdb() {
+        try {
+            return InetAddress.getByName("127.0.0.1");
+        } catch (UnknownHostException e) {
+            return null;
+        }
+    }
 }
