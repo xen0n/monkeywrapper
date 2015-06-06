@@ -176,12 +176,12 @@ public class MonkeyBridge {
     static class StopMonkeyEvent {
     }
 
-    static class MonkeyStartedEvent {
+    public static class MonkeyStartedEvent {
     }
 
-    static class MonkeyUnavailableEvent {
+    public static class MonkeyUnavailableEvent {
     }
 
-    static class MonkeyStoppedEvent {
+    public static class MonkeyStoppedEvent {
     }
 }
