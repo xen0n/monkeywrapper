@@ -9,4 +9,11 @@
         android:id="@+id/toolbar"
         style="@style/MW.Widget.Nav.Toolbar" />
 
+    <TextView
+        android:id="@+id/textRootStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp" />
+
 </LinearLayout>
