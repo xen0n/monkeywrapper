@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import name.xen0n.monkeywrapper.action.transport.BluetoothTransport;
 import name.xen0n.monkeywrapper.action.transport.MWTCPTestTransport;
 import name.xen0n.monkeywrapper.action.transport.MWTransport;
 import name.xen0n.monkeywrapper.app.MWBaseService;
@@ -23,6 +24,7 @@ public class MWTransportDriverAspect implements MWServiceAspect {
     public void initAspect(final MWBaseService ctx) {
         xports = new ArrayList<MWTransport>();
         xports.add(new MWTCPTestTransport());
+        xports.add(new BluetoothTransport());
     }
 
     @Override
