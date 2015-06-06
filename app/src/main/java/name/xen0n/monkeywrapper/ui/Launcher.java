@@ -1,11 +1,13 @@
 package name.xen0n.monkeywrapper.ui;
 
 import name.xen0n.monkeywrapper.R;
+import name.xen0n.monkeywrapper.action.bridge.MonkeyBridge;
 import name.xen0n.monkeywrapper.app.MWBaseActivity;
 import name.xen0n.monkeywrapper.service.MWDaemonService;
 import name.xen0n.monkeywrapper.util.ShellUtils;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 import butterknife.InjectView;
 
@@ -33,10 +35,6 @@ public class Launcher extends MWBaseActivity {
 
         setupToolbar(toolbar);
         checkRootStatus();
-        checkMonkeyStatus();
-    }
-
-    public void onEvent(int dummy) {
     }
 
     private void setupToolbar(final Toolbar toolbar) {
@@ -48,6 +46,15 @@ public class Launcher extends MWBaseActivity {
         textRootStatus.setText(isRooted ? "rooted" : "not rooted");
     }
 
-    private void checkMonkeyStatus() {
+    public void onEvent(final MonkeyBridge.MonkeyStartedEvent evt) {
+        Log.i(TAG, "monkey started");
+    }
+
+    public void onEvent(final MonkeyBridge.MonkeyStoppedEvent evt) {
+        Log.i(TAG, "monkey stopped");
+    }
+
+    public void onEvent(final MonkeyBridge.MonkeyUnavailableEvent evt) {
+        Log.w(TAG, "monkey unavailable");
     }
 }
