@@ -16,15 +16,15 @@ import java.util.Map;
 public class ShellUtils {
 
     private final static String[] BINARY_PLACES = {
-            "/data/bin/",
-            "/system/bin/",
-            "/system/xbin/",
-            "/sbin/",
-            "/data/local/xbin/",
-            "/data/local/bin/",
-            "/system/sd/xbin/",
-            "/system/bin/failsafe/",
-            "/data/local/"
+        "/data/bin/",
+        "/system/bin/",
+        "/system/xbin/",
+        "/sbin/",
+        "/data/local/xbin/",
+        "/data/local/bin/",
+        "/system/sd/xbin/",
+        "/system/bin/failsafe/",
+        "/data/local/"
     };
     public static File DATA_DIR = new File(
             "/data/data/name.xen0n.monkeywrapper");
@@ -102,9 +102,9 @@ public class ShellUtils {
         // LogUtils.i("sudo: " + Arrays.toString(command));
         ProcessBuilder processBuilder = new ProcessBuilder();
         Process process = processBuilder
-            .command(findCommand("su"))
-            .redirectErrorStream(true)
-            .start();
+                .command(findCommand("su"))
+                .redirectErrorStream(true)
+                .start();
         OutputStreamWriter stdin = new OutputStreamWriter(
                 process.getOutputStream());
         try {
@@ -137,6 +137,13 @@ public class ShellUtils {
 
     public static String waitFor(String command, Process process)
             throws Exception {
+        return waitFor(command, process, 0);
+    }
+
+    public static String waitFor(
+            String command,
+            Process process,
+            int expectedRetcode) throws Exception {
         BufferedReader stdout = new BufferedReader(new InputStreamReader(
                 process.getInputStream()));
         StringBuilder output = new StringBuilder();
@@ -151,7 +158,7 @@ public class ShellUtils {
         }
         process.waitFor();
         int exitValue = process.exitValue();
-        if (0 != exitValue) {
+        if (exitValue != expectedRetcode) {
             throw new Exception("failed to execute: " + command
                     + ", exit value: " + exitValue + ", output: " + output);
         }
