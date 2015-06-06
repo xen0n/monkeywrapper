@@ -12,6 +12,10 @@
     <eat-comment />
 
     <string name="mw_a11y_service_label">MonkeyWrapper 当前应用监视</string>
-    <string name="mw_a11y_service_desc">使 MonkeyWrapper 能够了解当前正在运行的应用。</string>
+    <string name="mw_a11y_service_desc">"第二步：打开右上角开关
+
+本服务使 MonkeyWrapper 能够了解当前正在运行的应用，以在您发起动作时能根据当前应用做出正确反应。
+
+开启时，您会收到关于隐私风险的提示。开启任何辅助服务系统都会有此例行提示。MonkeyWrapper 承诺不通过此服务搜集任何用户信息。"</string>
 
 </resources>
