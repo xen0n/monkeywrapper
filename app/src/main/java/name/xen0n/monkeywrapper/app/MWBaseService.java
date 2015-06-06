@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.Service;
+import android.content.Intent;
 import android.util.Log;
 
 
@@ -57,4 +58,36 @@ public abstract class MWBaseService extends Service
             return null;
         }
     }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        for (MWServiceAspect aspect : aspects) {
+            aspect.initAspect(this);
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // notify aspects
+        for (MWServiceAspect aspect : aspects) {
+            // NOTE: intent could be null, if service crashed and is being
+            // restarted by system. Aspects should handle this.
+            aspect.handleStartCommand(this, intent, flags, startId);
+        }
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        // finalize aspects
+        for (MWServiceAspect aspect : aspects) {
+            aspect.destroyAspect(this);
+        }
+
+        super.onDestroy();
+    }
+
 }
