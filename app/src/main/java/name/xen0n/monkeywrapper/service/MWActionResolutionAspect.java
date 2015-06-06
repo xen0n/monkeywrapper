@@ -3,6 +3,9 @@ package name.xen0n.monkeywrapper.service;
 import java.lang.ref.WeakReference;
 import java.util.Set;
 
+import name.xen0n.monkeywrapper.action.MWActionDecl;
+import name.xen0n.monkeywrapper.action.MWActionRegistry;
+import name.xen0n.monkeywrapper.action.MWPerformActionEvent;
 import name.xen0n.monkeywrapper.action.MWRequestActionEvent;
 import name.xen0n.monkeywrapper.app.MWBaseService;
 import name.xen0n.monkeywrapper.app.MWServiceAspect;
@@ -16,6 +19,7 @@ public class MWActionResolutionAspect implements MWServiceAspect {
     private static final String TAG = "MWActionResolutionAspect";
 
     private WeakReference<MWBaseService> srv;
+    private MWActionRegistry registry;
 
     public EventBus getEventBus() {
         return EventBus.getDefault();
@@ -24,6 +28,7 @@ public class MWActionResolutionAspect implements MWServiceAspect {
     @Override
     public void initAspect(final MWBaseService ctx) {
         srv = new WeakReference<MWBaseService>(ctx);
+        registry = new MWActionRegistry();
 
         getEventBus().register(this);
     }
@@ -68,5 +73,17 @@ public class MWActionResolutionAspect implements MWServiceAspect {
 
         Log.d(TAG, "resolveAction: id=" + actionId + " package="
                 + packageName + " class=" + className);
+        final MWActionDecl resolvedDecl = registry.resolveAction(
+                actionId,
+                packageName,
+                className);
+
+        if (resolvedDecl == null) {
+            Log.i(TAG, "resolveAction: no corresponding action");
+            return;
+        }
+
+        Log.i(TAG, "resolveAction: resolvedDecl=" + resolvedDecl);
+        getEventBus().post(new MWPerformActionEvent(resolvedDecl));
     }
 }
