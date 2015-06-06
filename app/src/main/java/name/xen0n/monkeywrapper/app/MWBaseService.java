@@ -37,6 +37,11 @@ public abstract class MWBaseService extends Service
         for (final MWServiceAspect aspect : aspects) {
             final Set<Integer> capableCommands = aspect
                     .queryCapableRequests();
+
+            if (capableCommands == null) {
+                continue;
+            }
+
             for (final int command : capableCommands) {
                 commandMap.put(command, new WeakReference<MWServiceAspect>(
                         aspect));
