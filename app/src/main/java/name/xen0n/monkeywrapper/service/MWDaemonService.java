@@ -19,6 +19,7 @@ public class MWDaemonService extends MWBaseService {
     public void populateAspects() {
         addAspect(new MWTopWindowTrackingAspect());
         addAspect(new MWActionResolutionAspect());
+        addAspect(new MWTransportDriverAspect());
     }
 
     @Override
