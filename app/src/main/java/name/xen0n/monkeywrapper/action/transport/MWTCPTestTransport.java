@@ -8,6 +8,7 @@ import java.net.Socket;
 
 import name.xen0n.monkeywrapper.action.MWRequestActionEvent;
 import name.xen0n.monkeywrapper.util.NetHelper;
+import android.content.Context;
 import android.util.Log;
 import de.greenrobot.event.EventBus;
 
@@ -25,7 +26,7 @@ public class MWTCPTestTransport implements MWTransport {
     }
 
     @Override
-    public void startTransport(final EventBus bus) {
+    public void startTransport(final Context ctx, final EventBus bus) {
         Log.i(TAG, "startTransport: bus=" + bus);
 
         if (thrd != null) {
@@ -38,7 +39,7 @@ public class MWTCPTestTransport implements MWTransport {
     }
 
     @Override
-    public void stopTransport(final EventBus bus) {
+    public void stopTransport(final Context ctx, final EventBus bus) {
         Log.i(TAG, "stopTransport");
 
         if (thrd != null) {

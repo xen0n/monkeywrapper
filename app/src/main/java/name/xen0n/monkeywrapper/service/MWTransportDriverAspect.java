@@ -40,7 +40,7 @@ public class MWTransportDriverAspect implements MWServiceAspect {
 
         Log.i(TAG, "starting transports");
         for (final MWTransport xport : xports) {
-            xport.startTransport(bus);
+            xport.startTransport(ctx, bus);
         }
     }
 
@@ -58,7 +58,7 @@ public class MWTransportDriverAspect implements MWServiceAspect {
 
         Log.i(TAG, "stopping transports");
         for (final MWTransport xport : xports) {
-            xport.stopTransport(bus);
+            xport.stopTransport(ctx, bus);
         }
     }
 }
