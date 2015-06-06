@@ -10,22 +10,30 @@ import android.text.TextUtils;
 
 public class MWActionDecl {
 
+    private final int targetActionId;
     private final CharSequence targetPackage;
     private final CharSequence targetClass;
     private final Class<? extends MWSequenceFactory> factoryClass;
 
     protected MWActionDecl(
+            final int targetActionId,
             final CharSequence targetPackage,
             final CharSequence targetClass,
             final Class<? extends MWSequenceFactory> factoryClass) {
+        this.targetActionId = targetActionId;
         this.targetPackage = targetPackage;
         this.targetClass = targetClass;
         this.factoryClass = factoryClass;
     }
 
     public boolean matchTarget(
+            final int actionId,
             final CharSequence packageName,
             final CharSequence className) {
+        if (targetActionId != actionId) {
+            return false;
+        }
+
         if (TextUtils.isEmpty(packageName)) {
             if (TextUtils.isEmpty(targetClass)) {
                 return true;
