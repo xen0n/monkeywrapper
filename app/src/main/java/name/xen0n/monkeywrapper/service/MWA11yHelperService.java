@@ -2,6 +2,7 @@ package name.xen0n.monkeywrapper.service;
 
 import name.xen0n.monkeywrapper.events.A11yTopWindowChangeEvent;
 import android.accessibilityservice.AccessibilityService;
+import android.content.Intent;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import de.greenrobot.event.EventBus;
@@ -13,6 +14,17 @@ public class MWA11yHelperService extends AccessibilityService {
 
     public EventBus getEventBus() {
         return EventBus.getDefault();
+    }
+
+    @Override
+    public int onStartCommand(
+            final Intent intent,
+            final int flags,
+            final int startId) {
+        // launch our daemon
+        MWDaemonService.start(this);
+
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
