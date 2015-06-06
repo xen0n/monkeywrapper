@@ -8,6 +8,8 @@
         android:minSdkVersion="10"
         android:targetSdkVersion="22" />
 
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_app"
@@ -49,6 +51,27 @@
                 <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- daemon service -->
+        <service
+            android:name=".service.MWDaemonService"
+            android:exported="false"
+            android:label="@string/mw_daemon_service_label" />
+
+        <!-- a11y helper service -->
+        <service
+            android:name=".service.MWA11yHelperService"
+            android:exported="true"
+            android:label="@string/mw_a11y_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/mw_a11y_service_config" />
+
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+        </service>
 
         <!-- Remove the TestActivity coming from recyclerview-v7 -->
         <!-- suppress AndroidDomInspection -->

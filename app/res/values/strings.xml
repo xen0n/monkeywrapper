@@ -2,4 +2,16 @@
 <resources>
 
     <string name="app_name">monkeywrapper</string>
+
+    <!-- daemon service -->
+    <eat-comment />
+
+    <string name="mw_daemon_service_label">MonkeyWrapper 守护服务</string>
+
+    <!-- a11y -->
+    <eat-comment />
+
+    <string name="mw_a11y_service_label">MonkeyWrapper 当前应用监视</string>
+    <string name="mw_a11y_service_desc">使 MonkeyWrapper 能够了解当前正在运行的应用。</string>
+
 </resources>
