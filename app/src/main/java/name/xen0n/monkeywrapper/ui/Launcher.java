@@ -1,7 +1,7 @@
 package name.xen0n.monkeywrapper.ui;
 
 import name.xen0n.monkeywrapper.R;
-import name.xen0n.monkeywrapper.action.bridge.MonkeyBridge;
+import name.xen0n.monkeywrapper.action.bridge.MonkeyWrapper;
 import name.xen0n.monkeywrapper.app.MWBaseActivity;
 import name.xen0n.monkeywrapper.service.MWDaemonService;
 import name.xen0n.monkeywrapper.util.ShellUtils;
@@ -46,15 +46,15 @@ public class Launcher extends MWBaseActivity {
         textRootStatus.setText(isRooted ? "rooted" : "not rooted");
     }
 
-    public void onEvent(final MonkeyBridge.MonkeyStartedEvent evt) {
+    public void onEvent(final MonkeyWrapper.MonkeyStartedEvent evt) {
         Log.i(TAG, "monkey started");
     }
 
-    public void onEvent(final MonkeyBridge.MonkeyStoppedEvent evt) {
+    public void onEvent(final MonkeyWrapper.MonkeyStoppedEvent evt) {
         Log.i(TAG, "monkey stopped");
     }
 
-    public void onEvent(final MonkeyBridge.MonkeyUnavailableEvent evt) {
+    public void onEvent(final MonkeyWrapper.MonkeyUnavailableEvent evt) {
         Log.w(TAG, "monkey unavailable");
     }
 }

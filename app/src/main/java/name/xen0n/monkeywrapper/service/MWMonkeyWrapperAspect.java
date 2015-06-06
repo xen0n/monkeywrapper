@@ -3,7 +3,7 @@ package name.xen0n.monkeywrapper.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import name.xen0n.monkeywrapper.action.bridge.MonkeyBridge;
+import name.xen0n.monkeywrapper.action.bridge.MonkeyWrapper;
 import name.xen0n.monkeywrapper.app.MWBaseService;
 import name.xen0n.monkeywrapper.app.MWServiceAspect;
 import android.content.Intent;
@@ -11,11 +11,11 @@ import android.content.Intent;
 
 public class MWMonkeyWrapperAspect implements MWServiceAspect {
 
-    private MonkeyBridge bridge;
+    private MonkeyWrapper bridge;
 
     @Override
     public void initAspect(final MWBaseService ctx) {
-        bridge = new MonkeyBridge();
+        bridge = new MonkeyWrapper();
     }
 
     @Override

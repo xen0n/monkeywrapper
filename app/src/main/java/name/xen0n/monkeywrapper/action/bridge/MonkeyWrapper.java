@@ -10,9 +10,9 @@ import android.util.Log;
 import de.greenrobot.event.EventBus;
 
 
-public class MonkeyBridge {
+public class MonkeyWrapper {
 
-    private static final String TAG = "MonkeyBridge";
+    private static final String TAG = "MonkeyWrapper";
 
     public static final int DEFAULT_MONKEY_PORT = 12970;
     public static final String DEFAULT_MONKEY_PATH = "monkey";
@@ -27,15 +27,15 @@ public class MonkeyBridge {
         return EventBus.getDefault();
     }
 
-    public MonkeyBridge() {
+    public MonkeyWrapper() {
         this(DEFAULT_MONKEY_PATH, DEFAULT_MONKEY_PORT);
     }
 
-    public MonkeyBridge(final String monkeyPath) {
+    public MonkeyWrapper(final String monkeyPath) {
         this(monkeyPath, DEFAULT_MONKEY_PORT);
     }
 
-    public MonkeyBridge(final String monkeyPath, final int monkeyPort) {
+    public MonkeyWrapper(final String monkeyPath, final int monkeyPort) {
         this.monkeyPath = monkeyPath;
         this.monkeyPort = monkeyPort;
 
