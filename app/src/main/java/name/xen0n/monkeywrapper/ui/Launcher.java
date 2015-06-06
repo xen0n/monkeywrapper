@@ -6,7 +6,6 @@ import name.xen0n.monkeywrapper.service.MWDaemonService;
 import name.xen0n.monkeywrapper.util.ShellUtils;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.TextView;
 import butterknife.InjectView;
 
@@ -50,13 +49,5 @@ public class Launcher extends MWBaseActivity {
     }
 
     private void checkMonkeyStatus() {
-        String out = null;
-        try {
-            out = ShellUtils.sudo("monkey");
-        } catch (Exception e) {
-            Log.e(TAG, "checkMonkeyStatus errored", e);
-        }
-
-        Log.d(TAG, "checkMonkeyStatus OK\n" + out);
     }
 }
