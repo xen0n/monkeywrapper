@@ -1,7 +1,6 @@
 package name.xen0n.monkeywrapper.service;
 
 import java.lang.ref.WeakReference;
-import java.util.HashSet;
 import java.util.Set;
 
 import name.xen0n.monkeywrapper.action.MWRequestActionEvent;
@@ -31,11 +30,7 @@ public class MWActionResolutionAspect implements MWServiceAspect {
 
     @Override
     public Set<Integer> queryCapableRequests() {
-        final Set<Integer> commands = new HashSet<Integer>();
-        commands.add(MWServiceRequests.REQ_TOP_PACKAGE_NAME);
-        commands.add(MWServiceRequests.REQ_TOP_CLASS_NAME);
-
-        return commands;
+        return null;
     }
 
     @Override
