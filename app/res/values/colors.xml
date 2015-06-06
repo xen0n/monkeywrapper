@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Foreground colors -->
+    <eat-comment />
+
+    <!-- On brand_main -->
+    <color name="main_fg">#ffffff</color>
+
+    <!-- On brand_bg0, 87% alpha -->
+    <color name="bg0_fg">#de000000</color>
+
+    <!-- Brand colors -->
+    <eat-comment />
+
+    <!-- Grey 100 -->
+    <color name="brand_bg0">#f5f5f5</color>
+
+    <!-- Grey 200 -->
+    <color name="brand_bg1">#eeeeee</color>
+
+    <!-- Grey 300 -->
+    <color name="brand_bg2">#e0e0e0</color>
+
+    <!-- Light Green 700 -->
+    <color name="brand_main_dark0">#689f38</color>
+
+    <!-- Light Green 500 -->
+    <color name="brand_main">#8bc34a</color>
+
+    <!-- Light Green 300 -->
+    <color name="brand_main1">#aed581</color>
+
+    <!-- Light Green 200 -->
+    <color name="brand_main2">#c5e1a5</color>
+
+    <!-- Green 500 -->
+    <color name="brand_success">#8bc34a</color>
+
+    <!-- Orange A700 -->
+    <color name="brand_accent">#ff6d00</color>
+
+    <!-- UI-related settings -->
+    <!-- NOTE: Use references to the main colors as much as possible -->
+    <eat-comment />
+
+    <!-- Global -->
+    <eat-comment />
+
+    <color name="global_default_bg">@color/brand_bg0</color>
+    <color name="global_default_fg">@color/bg0_fg</color>
+
+</resources>
