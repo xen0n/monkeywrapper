@@ -14,7 +14,6 @@ public class MonkeyWrapper {
 
     private static final String TAG = "MonkeyWrapper";
 
-    public static final int DEFAULT_MONKEY_PORT = 12970;
     public static final String DEFAULT_MONKEY_PATH = "monkey";
 
     private final String monkeyPath;
@@ -28,11 +27,11 @@ public class MonkeyWrapper {
     }
 
     public MonkeyWrapper() {
-        this(DEFAULT_MONKEY_PATH, DEFAULT_MONKEY_PORT);
+        this(DEFAULT_MONKEY_PATH, MonkeyBridge.DEFAULT_MONKEY_PORT);
     }
 
     public MonkeyWrapper(final String monkeyPath) {
-        this(monkeyPath, DEFAULT_MONKEY_PORT);
+        this(monkeyPath, MonkeyBridge.DEFAULT_MONKEY_PORT);
     }
 
     public MonkeyWrapper(final String monkeyPath, final int monkeyPort) {
