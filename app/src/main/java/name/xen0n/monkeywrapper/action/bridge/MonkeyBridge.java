@@ -116,36 +116,44 @@ public class MonkeyBridge {
 
         @Override
         public void run() {
-            do {
-                try {
-                    process = ShellUtils.sudoNoWait(
-                            new HashMap<String, String>(),
-                            path,
-                            "--port",
-                            Integer.toString(port));
-                } catch (Exception e) {
-                    Log.e(TAG, "spawning of monkey failed", e);
-                    bus.post(new MonkeyUnavailableEvent());
-                    break;
-                }
+            try {
+                do {
+                    Log.i(TAG, "spawning monkey: path=" + path + " port="
+                            + port);
 
-                bus.post(new MonkeyStartedEvent());
-
-                // capture stdout
-                final BufferedReader stdout = new BufferedReader(
-                        new InputStreamReader(process.getInputStream()));
-
-                while (!shouldStop) {
                     try {
-                        final String line = stdout.readLine();
-                        if (line == null) {
-                            break;
-                        }
-
-                        Log.v(TAG, line);
-                    } catch (final IOException e) {
-                        Log.e(TAG, "error reading monkey stdout", e);
+                        process = ShellUtils.sudoNoWait(
+                                new HashMap<String, String>(),
+                                path,
+                                "--port",
+                                Integer.toString(port));
+                    } catch (Exception e) {
+                        Log.e(TAG, "spawning of monkey failed", e);
+                        bus.post(new MonkeyUnavailableEvent());
                         break;
+                    }
+
+                    Log.i(TAG, "monkey started: " + process);
+                    bus.post(new MonkeyStartedEvent());
+
+                    // capture stdout
+                    final BufferedReader stdout = new BufferedReader(
+                            new InputStreamReader(process.getInputStream()));
+
+                    try {
+                        while (!shouldStop) {
+                            try {
+                                final String line = stdout.readLine();
+                                if (line == null) {
+                                    break;
+                                }
+
+                                Log.v(TAG, line);
+                            } catch (final IOException e) {
+                                Log.e(TAG, "error reading monkey stdout", e);
+                                break;
+                            }
+                        }
                     } finally {
                         try {
                             stdout.close();
@@ -153,17 +161,17 @@ public class MonkeyBridge {
                             Log.e(TAG, "error closing monkey stdout", e);
                         }
                     }
-                }
 
-                try {
-                    process.waitFor();
-                } catch (final InterruptedException e) {
-                    Log.w(TAG, "interrupted while waiting for join", e);
-                }
-            } while (false);
-
-            bus.post(new MonkeyStoppedEvent());
-            bus.unregister(this);
+                    try {
+                        process.waitFor();
+                    } catch (final InterruptedException e) {
+                        Log.w(TAG, "interrupted while waiting for join", e);
+                    }
+                } while (false);
+            } finally {
+                bus.post(new MonkeyStoppedEvent());
+                bus.unregister(this);
+            }
         }
 
         public void onEvent(final StopMonkeyEvent evt) {
