@@ -11,11 +11,11 @@ import android.content.Intent;
 
 public class MWMonkeyWrapperAspect implements MWServiceAspect {
 
-    private MonkeyWrapper bridge;
+    private MonkeyWrapper wrapper;
 
     @Override
     public void initAspect(final MWBaseService ctx) {
-        bridge = new MonkeyWrapper();
+        wrapper = new MonkeyWrapper();
     }
 
     @Override
@@ -33,8 +33,8 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
             final Intent intent,
             final int flags,
             final int startId) {
-        if (!bridge.isStarted()) {
-            bridge.startMonkey();
+        if (!wrapper.isStarted()) {
+            wrapper.startMonkey();
         }
     }
 
@@ -45,10 +45,10 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
             final Object args) {
         switch (request) {
             case MWServiceRequests.REQ_MONKEY_AVAILABILITY:
-                return bridge.isAvailable();
+                return wrapper.isAvailable();
 
             case MWServiceRequests.REQ_MONKEY_STARTED:
-                return bridge.isStarted();
+                return wrapper.isStarted();
         }
 
         return null;
@@ -56,6 +56,6 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
 
     @Override
     public void destroyAspect(final MWBaseService ctx) {
-        bridge.stopMonkey();
+        wrapper.stopMonkey();
     }
 }
