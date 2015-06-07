@@ -23,6 +23,7 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
         final Set<Integer> commands = new HashSet<Integer>();
         commands.add(MWServiceRequests.REQ_MONKEY_AVAILABILITY);
         commands.add(MWServiceRequests.REQ_MONKEY_STARTED);
+        commands.add(MWServiceRequests.REQ_MONKEY_WRAPPER);
 
         return commands;
     }
@@ -49,6 +50,9 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
 
             case MWServiceRequests.REQ_MONKEY_STARTED:
                 return wrapper.isStarted();
+
+            case MWServiceRequests.REQ_MONKEY_WRAPPER:
+                return wrapper;
         }
 
         return null;

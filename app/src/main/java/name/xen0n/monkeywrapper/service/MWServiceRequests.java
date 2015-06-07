@@ -9,4 +9,5 @@ public class MWServiceRequests {
     // monkey wrapper aspect
     public static final int REQ_MONKEY_AVAILABILITY = 65;
     public static final int REQ_MONKEY_STARTED = 66;
+    public static final int REQ_MONKEY_WRAPPER = 67;
 }

@@ -8,6 +8,7 @@ import name.xen0n.monkeywrapper.action.MWActionRegistry;
 import name.xen0n.monkeywrapper.action.MWPerformActionEvent;
 import name.xen0n.monkeywrapper.action.MWRequestActionEvent;
 import name.xen0n.monkeywrapper.action.bridge.MonkeyBridge;
+import name.xen0n.monkeywrapper.action.bridge.MonkeyWrapper;
 import name.xen0n.monkeywrapper.app.MWBaseService;
 import name.xen0n.monkeywrapper.app.MWServiceAspect;
 import android.content.Intent;
@@ -68,7 +69,10 @@ public class MWActionResolutionAspect implements MWServiceAspect {
         final MWActionDecl decl = evt.getActionDecl();
         Log.i(TAG, "going to perform action " + decl);
 
-        MonkeyBridge bridge = new MonkeyBridge();
+        final MonkeyWrapper wrapper = (MonkeyWrapper) srv
+                .get()
+                .queryAspectFor(MWServiceRequests.REQ_MONKEY_WRAPPER, null);
+        MonkeyBridge bridge = new MonkeyBridge(wrapper);
         if (!bridge.connect()) {
             Log.e(TAG, "monkey bridge connect failed");
             return;

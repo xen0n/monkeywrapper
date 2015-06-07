@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import android.os.SystemClock;
 import android.util.Log;
 
 
@@ -17,17 +18,19 @@ public class MonkeyBridge {
 
     public static final int DEFAULT_MONKEY_PORT = 12970;
 
+    private final MonkeyWrapper wrapper;
     private final int monkeyPort;
 
     private Socket sk;
     private BufferedReader rx;
     private OutputStreamWriter tx;
 
-    public MonkeyBridge() {
-        this(DEFAULT_MONKEY_PORT);
+    public MonkeyBridge(final MonkeyWrapper wrapper) {
+        this(wrapper, DEFAULT_MONKEY_PORT);
     }
 
-    public MonkeyBridge(final int monkeyPort) {
+    public MonkeyBridge(final MonkeyWrapper wrapper, final int monkeyPort) {
+        this.wrapper = wrapper;
         this.monkeyPort = monkeyPort;
     }
 
@@ -87,6 +90,13 @@ public class MonkeyBridge {
         tx = null;
         rx = null;
         sk = null;
+
+        // due to monkey bug p/android/issues/detail?id=77961,
+        // we immediately restart monkey here
+        // let's hope that actions won't come up so frequently
+        wrapper.stopMonkey();
+        SystemClock.sleep(250);
+        wrapper.startMonkey();
     }
 
     public int sendCommands(final List<String> cmds) {
