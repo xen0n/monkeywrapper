@@ -176,7 +176,10 @@ public class MonkeyWrapper {
         public void onEvent(final StopMonkeyEvent evt) {
             Log.d(TAG, "StopMonkeyEvent received");
             shouldStop = true;
-            process.destroy();
+            if (process != null) {
+                process.destroy();
+                process = null;
+            }
         }
     }
 
