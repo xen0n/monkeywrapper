@@ -124,11 +124,17 @@ public class MonkeyWrapper {
 
         @Override
         public void run() {
+            String psOutput;
             try {
-                ShellUtils.execute("ps | grep monkey");
+                psOutput = ShellUtils.execute("ps");
+            } catch (Exception e) {
+                Log.w(TAG, "error executing ps, bailing for safety");
+                return;
+            }
+
+            if (psOutput.contains("com.android.commands.monkey")) {
                 Log.d(TAG, "there is already a monkey, bailing");
                 return;
-            } catch (Exception e) {
             }
 
             try {
