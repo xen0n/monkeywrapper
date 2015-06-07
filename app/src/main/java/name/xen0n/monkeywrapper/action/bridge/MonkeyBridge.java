@@ -100,6 +100,8 @@ public class MonkeyBridge {
 
                 final String response = rx.readLine();
                 Log.v(TAG, "cmd: " + cmd + " -> " + response);
+
+                commandsSent++;
             }
         } catch (final IOException e) {
             Log.e(TAG, "error during commanding", e);
