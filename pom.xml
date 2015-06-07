@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
+  <groupId>name.xen0n.monkeywrapper</groupId>
+  <artifactId>parent</artifactId>
+  <packaging>pom</packaging>
+  <version>0.1.0-submission</version>
+
+  <name>Monkeywrapper for Android (Parent)</name>
+  <description>Android Monkeywrapper</description>
+  <url>https://gitcafe.com/xen0n/monkeywrapper</url>
+  <inceptionYear>2015</inceptionYear>
+
+  <!--
+  <repositories>
+    <repository>
+      <id>3rdparty</id>
+      <url>file://${basedir}/3rdparty</url>
+    </repository>
+  </repositories>
+  -->
+
+  <modules>
+    <module>app</module>
+  </modules>
+
+  <scm>
+    <url>https://gitcafe.com/xen0n/monkeywrapper/</url>
+    <connection>scm:git:https://gitcafe.com/xen0n/monkeywrapper.git</connection>
+    <developerConnection>scm:git:https://gitcafe.com/xen0n/monkeywrapper.git</developerConnection>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Wang Xuerui</name>
+      <email>idontknw.wang@gmail.com</email>
+      <id>xen0n</id>
+      <url>https://github.com/xen0n</url>
+      <timezone>+8</timezone>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License (GPL)</name>
+      <url>http://www.gnu.org/licenses/gpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <issueManagement>
+    <system>GitCafe Tickets</system>
+    <url>https://gitcafe.com/xen0n/lh-android/tickets</url>
+  </issueManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <java.version>1.6</java.version>
+
+    <android.platform>22</android.platform>
+    <android.version>5.1_r1</android.version>
+    <appcompat.version>22.0.0</appcompat.version>
+    <butterknife.version>6.1.0</butterknife.version>
+    <okhttp.version>2.2.0</okhttp.version>
+    <systembartint.version>1.0.3</systembartint.version>
+    <eventbus.version>2.4.0</eventbus.version>
+  </properties>
+
+  <!-- Build configurations. -->
+  <profiles>
+    <profile>
+      <id>build-debug</id>
+      <activation>
+        <property>
+          <name>debug</name>
+          <value>1</value>
+        </property>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <buildcfg.proguard.skip>false</buildcfg.proguard.skip>
+        <buildcfg.proguard.cfg.path>${project.basedir}/proguard.debug.cfg</buildcfg.proguard.cfg.path>
+        <buildcfg.apk.debug>true</buildcfg.apk.debug>
+        <buildcfg.release>false</buildcfg.release>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>build-debug-quick</id>
+      <activation>
+        <property>
+          <name>debug</name>
+          <value>2</value>
+        </property>
+      </activation>
+      <properties>
+        <buildcfg.proguard.skip>true</buildcfg.proguard.skip>
+        <buildcfg.apk.debug>true</buildcfg.apk.debug>
+        <buildcfg.release>false</buildcfg.release>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>build-release</id>
+      <activation>
+        <property>
+          <name>debug</name>
+          <value>0</value>
+        </property>
+      </activation>
+      <properties>
+        <buildcfg.proguard.skip>false</buildcfg.proguard.skip>
+        <buildcfg.proguard.cfg.path>${project.basedir}/proguard.release.cfg</buildcfg.proguard.cfg.path>
+        <buildcfg.apk.debug>false</buildcfg.apk.debug>
+        <buildcfg.release>true</buildcfg.release>
+      </properties>
+    </profile>
+  </profiles>
+
+  <dependencies>
+    <!-- Platform -->
+    <dependency>
+      <groupId>android</groupId>
+      <artifactId>android</artifactId>
+      <version>${android.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.simpligility.maven.plugins</groupId>
+          <artifactId>android-maven-plugin</artifactId>
+          <version>4.2.0</version>
+          <extensions>true</extensions>
+          <configuration>
+            <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+            <assetsDirectory>${project.basedir}/assets</assetsDirectory>
+            <resourceDirectory>${project.basedir}/res</resourceDirectory>
+            <nativeLibrariesDirectory>${project.basedir}/src/main/libs</nativeLibrariesDirectory>
+
+            <release>${buildcfg.release}</release>
+
+            <sdk>
+              <platform>${android.platform}</platform>
+            </sdk>
+
+            <undeployBeforeDeploy>true</undeployBeforeDeploy>
+
+            <!-- uh-oh, appcompat doesn't reference deps the Right Way? -->
+            <includeLibsJarsFromAar>true</includeLibsJarsFromAar>
+
+            <zipalign>
+              <skip>false</skip>
+            </zipalign>
+
+            <proguard>
+              <skip>${buildcfg.proguard.skip}</skip>
+              <config>${buildcfg.proguard.cfg.path}</config>
+            </proguard>
+
+            <apk>
+              <debug>${buildcfg.apk.debug}</debug>
+            </apk>
+          </configuration>
+          <executions>
+            <execution>
+              <id>merge-manifest</id>
+              <goals>
+                <goal>manifest-merger</goal>
+              </goals>
+              <configuration>
+                <manifestMergeLibraries>true</manifestMergeLibraries>
+                <manifestMergeReportFile>${project.build.directory}/manifest-merge-report.txt</manifestMergeReportFile>
+                <manifestVersionCodeUpdateFromVersion>true</manifestVersionCodeUpdateFromVersion>
+                <manifestVersionName>${git.commit.id.describe}</manifestVersionName>
+                <manifestVersionNamingPattern>^(\d+)\.(\d+)(?:-(\d+)-g[0-9a-f]+)?$</manifestVersionNamingPattern>
+                <manifestVersionDigits>4,3,3</manifestVersionDigits>
+              </configuration>
+            </execution>
+
+            <execution>
+              <id>zipalign</id>
+              <phase>package</phase>
+              <goals>
+                <goal>zipalign</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.2</version>
+        </plugin>
+
+        <!-- Silence m2e warnings for Eclipse -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>com.simpligility.maven.plugins</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <versionRange>[4.1.0,)</versionRange>
+                    <goals>
+                      <goal>manifest-merger</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>templating-maven-plugin</artifactId>
+                    <versionRange>[0.1,)</versionRange>
+                    <goals>
+                      <goal>filter-sources</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>2.1.12</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+          <dateFormat>yyyy-MM-dd HH:mm:ss Z</dateFormat>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+<!-- vim:set ai et ts=2 sw=2 sts=2 fenc=utf-8: -->
+</project>

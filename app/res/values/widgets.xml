@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="MW" />
+
+    <!-- Widget settings -->
+    <style name="MW.Widget" />
+
+    <style name="MW.Widget.Nav">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="MW.Widget.Nav.Toolbar">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:background">@color/brand_main</item>
+        <item name="popupTheme">@style/Theme.AppCompat.Light.NoActionBar</item>
+        <item name="theme">@style/Theme.MW.Toolbar.LightOverflow</item>
+    </style>
+
+</resources>
