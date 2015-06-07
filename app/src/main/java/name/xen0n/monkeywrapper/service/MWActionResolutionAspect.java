@@ -69,7 +69,16 @@ public class MWActionResolutionAspect implements MWServiceAspect {
         Log.i(TAG, "going to perform action " + decl);
 
         MonkeyBridge bridge = new MonkeyBridge();
-        decl.sendToBridge(bridge);
+        if (!bridge.connect()) {
+            Log.e(TAG, "monkey bridge connect failed");
+            return;
+        }
+
+        try {
+            decl.sendToBridge(bridge);
+        } finally {
+            bridge.close();
+        }
     }
 
     private void resolveAction(final int actionId) {
