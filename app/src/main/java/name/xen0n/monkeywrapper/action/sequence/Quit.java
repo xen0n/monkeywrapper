@@ -1,9 +1,9 @@
 package name.xen0n.monkeywrapper.action.sequence;
 
-public class Done implements MWActionSequenceElement {
+public class Quit implements MWActionSequenceElement {
 
     @Override
     public String toMonkeyCommand() {
-        return "done";
+        return "quit";
     }
 }

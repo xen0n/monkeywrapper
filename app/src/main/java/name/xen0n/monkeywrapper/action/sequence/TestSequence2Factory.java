@@ -8,6 +8,6 @@ public class TestSequence2Factory extends MWSequenceFactory {
     @Override
     protected void buildSequence(final Builder builder) {
         builder.add(new Press("back"));
-        builder.add(new Done());
+        builder.add(new Quit());
     }
 }
