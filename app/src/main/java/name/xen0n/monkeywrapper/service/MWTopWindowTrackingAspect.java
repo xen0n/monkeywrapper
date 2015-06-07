@@ -14,10 +14,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import de.greenrobot.event.EventBus;
 
 
 public class MWTopWindowTrackingAspect implements MWServiceAspect {
+
+    private static final String TAG = "MWTopWindowTrackingAspect";
 
     // top window tracking aspect
     private CharSequence topWindowPackageName;
@@ -90,13 +93,16 @@ public class MWTopWindowTrackingAspect implements MWServiceAspect {
     @SuppressWarnings("deprecation")
     private void tryRefreshFromRecentTasks() {
         final ActivityManager am = (ActivityManager) srv
-            .get()
-            .getSystemService(Context.ACTIVITY_SERVICE);
-        final List<RecentTaskInfo> recentTasks = am.getRecentTasks(1, 0);
+                .get()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        final List<RecentTaskInfo> recentTasks = am.getRecentTasks(5, 0);
+        Log.d(TAG, "recent tasks: " + recentTasks);
         if (recentTasks.size() > 0) {
             final ComponentName name = recentTasks.get(0).origActivity;
-            topWindowPackageName = name.getPackageName();
-            topWindowClassName = name.getClassName();
+            if (name != null) {
+                topWindowPackageName = name.getPackageName();
+                topWindowClassName = name.getClassName();
+            }
         }
     }
 }
