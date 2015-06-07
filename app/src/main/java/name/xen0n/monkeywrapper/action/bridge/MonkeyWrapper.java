@@ -157,6 +157,22 @@ public class MonkeyWrapper {
                                 }
 
                                 Log.v(TAG, line);
+
+                                if (line
+                                    .equals("Error binding to network socket.")) {
+                                    // maybe another monkey is running?
+                                    // kill it!
+                                    // XXX: only works with busybox...
+                                    try {
+                                        ShellUtils
+                                            .sudo(
+                                                    "killall",
+                                                    "com.android.commands.monkey");
+                                    } catch (Exception e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
+                                }
                             } catch (final IOException e) {
                                 Log.e(TAG, "error reading monkey stdout", e);
                                 break;
