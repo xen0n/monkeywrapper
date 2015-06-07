@@ -125,13 +125,6 @@ public class MonkeyWrapper {
         @Override
         public void run() {
             try {
-                ShellUtils.execute("ps | grep monkey");
-                Log.d(TAG, "there is already a monkey, bailing");
-                return;
-            } catch (Exception e) {
-            }
-
-            try {
                 do {
                     Log.i(TAG, "spawning monkey: path=" + path + " port="
                             + port);
@@ -166,15 +159,15 @@ public class MonkeyWrapper {
                                 Log.v(TAG, line);
 
                                 if (line
-                                        .equals("Error binding to network socket.")) {
+                                    .equals("Error binding to network socket.")) {
                                     // maybe another monkey is running?
                                     // kill it!
                                     // XXX: only works with busybox...
                                     try {
                                         ShellUtils
-                                        .sudo(
-                                                "killall",
-                                                "com.android.commands.monkey");
+                                            .sudo(
+                                                    "killall",
+                                                    "com.android.commands.monkey");
                                     } catch (Exception e) {
                                         // TODO Auto-generated catch block
                                         e.printStackTrace();
