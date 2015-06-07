@@ -7,7 +7,7 @@ public class TestSequence2Factory extends MWSequenceFactory {
 
     @Override
     protected void buildSequence(final Builder builder) {
-        builder.add(new Tap(500, 360));
+        builder.add(new Press("back"));
         builder.add(new Done());
     }
 }
