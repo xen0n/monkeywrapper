@@ -12,7 +12,7 @@
   <groupId>name.xen0n.monkeywrapper</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.1</version>
+  <version>0.1.0-submission</version>
 
   <name>Monkeywrapper for Android (Parent)</name>
   <description>Android Monkeywrapper</description>
