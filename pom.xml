@@ -189,7 +189,7 @@
                 <manifestMergeReportFile>${project.build.directory}/manifest-merge-report.txt</manifestMergeReportFile>
                 <manifestVersionCodeUpdateFromVersion>true</manifestVersionCodeUpdateFromVersion>
                 <manifestVersionName>${git.commit.id.describe}</manifestVersionName>
-                <manifestVersionNamingPattern>^(\d+)\.(\d+)(?:-(\d+)-g[0-9a-f]+)?$</manifestVersionNamingPattern>
+                <manifestVersionNamingPattern>^(\d+)\.(\d+)(?:[-.](\d+))?</manifestVersionNamingPattern>
                 <manifestVersionDigits>4,3,3</manifestVersionDigits>
               </configuration>
             </execution>
