@@ -8,6 +8,9 @@ import name.xen0n.monkeywrapper.util.ShellUtils;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import butterknife.InjectView;
 
@@ -22,6 +25,9 @@ public class Launcher extends MWBaseActivity {
     @InjectView(R.id.textRootStatus)
     TextView textRootStatus;
 
+    @InjectView(R.id.buttonTest)
+    Button buttonTest;
+
     @Override
     protected int getContentViewId(final Bundle icicle) {
         return R.layout.ui_launcher;
@@ -35,6 +41,14 @@ public class Launcher extends MWBaseActivity {
 
         setupToolbar(toolbar);
         checkRootStatus();
+
+        buttonTest.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                buttonTest.setText("Nice!");
+            }
+        });
     }
 
     private void setupToolbar(final Toolbar toolbar) {
