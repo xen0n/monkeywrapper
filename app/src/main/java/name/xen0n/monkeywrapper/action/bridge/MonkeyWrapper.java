@@ -19,6 +19,7 @@ public class MonkeyWrapper {
     private final String monkeyPath;
     private final int monkeyPort;
 
+    private boolean isRegistered;
     private boolean isAvailable;
     private boolean isStarted;
 
@@ -38,6 +39,7 @@ public class MonkeyWrapper {
         this.monkeyPath = monkeyPath;
         this.monkeyPort = monkeyPort;
 
+        isRegistered = false;
         isAvailable = false;
         isStarted = false;
     }
@@ -59,7 +61,11 @@ public class MonkeyWrapper {
     }
 
     public void startMonkey() {
-        getEventBus().register(this);
+        if (!isRegistered) {
+            getEventBus().register(this);
+            isRegistered = true;
+        }
+
         maybeSpawnMonkey();
     }
 
@@ -88,7 +94,10 @@ public class MonkeyWrapper {
     public void onEvent(final MonkeyStoppedEvent evt) {
         isStarted = false;
 
-        getEventBus().unregister(this);
+        if (isRegistered) {
+            getEventBus().unregister(this);
+            isRegistered = false;
+        }
     }
 
     static class MonkeyThread extends Thread {

@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import name.xen0n.monkeywrapper.action.bridge.MonkeyWrapper;
+import name.xen0n.monkeywrapper.action.bridge.MonkeyWrapper.MonkeyStoppedEvent;
 import name.xen0n.monkeywrapper.app.MWBaseService;
 import name.xen0n.monkeywrapper.app.MWServiceAspect;
 import android.content.Intent;
+import de.greenrobot.event.EventBus;
 
 
 public class MWMonkeyWrapperAspect implements MWServiceAspect {
@@ -16,6 +18,8 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
     @Override
     public void initAspect(final MWBaseService ctx) {
         wrapper = new MonkeyWrapper();
+
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -61,5 +65,15 @@ public class MWMonkeyWrapperAspect implements MWServiceAspect {
     @Override
     public void destroyAspect(final MWBaseService ctx) {
         wrapper.stopMonkey();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEvent(final MonkeyStoppedEvent evt) {
+        // due to monkey bug p/android/issues/detail?id=77961,
+        // we immediately restart monkey here
+        // let's hope that actions won't come up so frequently
+        if (wrapper.isAvailable()) {
+            wrapper.startMonkey();
+        }
     }
 }
